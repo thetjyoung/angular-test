@@ -5,6 +5,7 @@
       <label>Title</label>
       <select>
         <option value="">-- Select an option --</option>
+        <option value="" *ngFor="let title of titlesArr">{{title.name}}</option>
         <!--TODO: add titles to dropdown-->
       </select>
     </div>
