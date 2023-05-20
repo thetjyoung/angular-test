@@ -12,9 +12,10 @@
       <label>First Name</label>
       <input type="text" placeholder="First name" [(ngModel)]="firstName" name="firstName" />
     </div>
-    <div class="line">
+    <div class="line" [class.error]="lastNameControl.invalid && lastNameControl.touched">
       <label>Last Name</label>
-      <input type="text" placeholder="Last name" [(ngModel)]="lastName" name="lastName" />
+      <input type="text" placeholder="Last name" [(ngModel)]="lastName" name="lastName" #lastNameControl="ngModel" required />
+      <span *ngIf="lastNameControl.invalid && lastNameControl.touched" >*Last name is required</span>
     </div>
     <div class="line">
         <label>Email</label>
@@ -26,7 +27,8 @@
       <label>I accept the terms & conditions</label>
     </div>
     <div>
-      <button (click)="printFormValues()">Submit</button>
+      <input type="submit" name="submit" id="submit" *ngIf="lastNameControl.invalid" (click)="submitFormValues()" />
+      <button (click)="submitFormValues()">Submit</button>
     </div>
   </div>
 </form>

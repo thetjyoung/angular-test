@@ -39,7 +39,7 @@ export class SimpleFormComponent {
     this.selectedTitle = value
   }
   
-  printFormValues(): void {
+  submitFormValues(): void {
     console.log({
       title: this.selectedTitle,
       firstName: this.firstName,
