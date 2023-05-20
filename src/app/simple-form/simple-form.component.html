@@ -23,12 +23,12 @@
     </div>
     <span></span>
     <div>
-      <input type="checkbox" [(ngModel)]="termsConds" name="termsConds" />
+      <input type="checkbox" [(ngModel)]="termsConds" name="termsConds" #checkboxControl="ngModel" required />
       <label>I accept the terms & conditions</label>
     </div>
     <div>
-      <input type="submit" name="submit" id="submit" *ngIf="lastNameControl.invalid" (click)="submitFormValues()" />
-      <button (click)="submitFormValues()">Submit</button>
+      <input type="submit" name="submit" id="submit" (click)="submitFormValues()" [disabled]="checkboxControl.invalid" />
+      <!-- <button (click)="submitFormValues()">Submit</button> -->
     </div>
   </div>
 </form>
