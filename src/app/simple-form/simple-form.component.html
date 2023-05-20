@@ -3,19 +3,18 @@
   <div class="inner-wrapper">
     <div class="line">
       <label>Title</label>
-      <select>
+      <select #titles name="selectedTitle" (change)="onSelected(titles.selectedOptions[0].text)">
         <option value="">-- Select an option --</option>
-        <option value="" *ngFor="let title of titlesArr" [selected]="title.isDefault == true">{{title.name}}</option>
-        <!--TODO: add titles to dropdown-->
+        <option value="" *ngFor="let title of filteredTitles" [selected]="title.isDefault == true">{{title.name}}</option>
       </select>
     </div>
     <div class="line">
       <label>First Name</label>
-      <input type="text" placeholder="First name" />
+      <input type="text" placeholder="First name" [(ngModel)]="firstName" name="firstName" />
     </div>
     <div class="line">
       <label>Last Name</label>
-      <input type="text" placeholder="Last name" />
+      <input type="text" placeholder="Last name" [(ngModel)]="lastName" name="lastName" />
     </div>
     <div class="line">
         <label>Email</label>
@@ -23,11 +22,11 @@
     </div>
     <span></span>
     <div>
-      <input type="checkbox" />
+      <input type="checkbox" [(ngModel)]="termsConds" name="termsConds" />
       <label>I accept the terms & conditions</label>
     </div>
     <div>
-      <button>Submit</button>
+      <button (click)="printFormValues()">Submit</button>
     </div>
   </div>
 </form>
