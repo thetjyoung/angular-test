@@ -1,34 +1,35 @@
 <h1>Simple Angular Test</h1>
-<form>
+<form #formControl="ngForm" (ngSubmit)="submitFormValues(formControl)">
   <div class="inner-wrapper">
     <div class="line">
-      <label>Title</label>
-      <select #titles name="selectedTitle" (change)="onSelected(titles.selectedOptions[0].text)">
+      <label for="title">Title</label>
+      <select id="title" #titles name="selectedTitle" [(ngModel)]="selectedTitle" (change)="onSelected(titles.selectedOptions[0].text)">
         <option value="">-- Select an option --</option>
-        <option value="" *ngFor="let title of filteredTitles" [selected]="title.isDefault == true">{{title.name}}</option>
+        <option *ngFor="let title of filteredTitles" [selected]="title.isDefault === true" [ngValue]="title.name">{{title.name}}</option>
       </select>
     </div>
     <div class="line">
-      <label>First Name</label>
-      <input type="text" placeholder="First name" [(ngModel)]="firstName" name="firstName" />
+      <label for="firstName">First Name</label>
+      <input id="firstName" type="text" placeholder="First name" [(ngModel)]="firstName" name="firstName" />
     </div>
     <div class="line" [class.error]="lastNameControl.invalid && lastNameControl.touched">
-      <label>Last Name</label>
-      <input type="text" placeholder="Last name" [(ngModel)]="lastName" name="lastName" #lastNameControl="ngModel" required />
+      <label for="lastName">Last Name</label>
+      <input id="lastName" type="text" placeholder="Last name" [(ngModel)]="lastName" name="lastName" #lastNameControl="ngModel" required />
       <span *ngIf="lastNameControl.invalid && lastNameControl.touched" >*Last name is required</span>
     </div>
-    <div class="line">
-        <label>Email</label>
-        <input type="email" placeholder="Email" />
-    </div>
-    <span></span>
-    <div>
-      <input type="checkbox" [(ngModel)]="termsConds" name="termsConds" #checkboxControl="ngModel" required />
-      <label>I accept the terms & conditions</label>
+    <div class="line" [class.error]="emailControl.invalid && emailControl.touched || emailControl.errors?.['pattern']">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Email" [(ngModel)]="email" name="email" 
+          #emailControl="ngModel" email required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.com)+$"  />
+        <span *ngIf="emailControl.invalid && emailControl.touched">*Email is required<br></span>
+        <span *ngIf="emailControl.errors?.['pattern']">*Email is invalid</span>
     </div>
     <div>
-      <input type="submit" name="submit" id="submit" (click)="submitFormValues()" [disabled]="checkboxControl.invalid" />
-      <!-- <button (click)="submitFormValues()">Submit</button> -->
+      <input id="termsConds" type="checkbox" [(ngModel)]="termsConds" name="termsConds" #checkboxControl="ngModel" required />
+      <label for="termsConds">I accept the terms & conditions</label>
+    </div>
+    <div>
+      <input type="submit" name="submit" id="submit" [disabled]="checkboxControl.invalid || emailControl.errors?.['pattern']" />
     </div>
   </div>
 </form>

@@ -11,6 +11,7 @@ export class SimpleFormComponent {
 
   firstName: string = ""
   lastName: string = ""
+  email: string = ""
   termsConds: boolean = false
   selectedTitle: any;
   titlesArr: any;
@@ -38,13 +39,21 @@ export class SimpleFormComponent {
   onSelected(value: any): void {
     this.selectedTitle = value
   }
-  
-  submitFormValues(): void {
-    console.log({
-      title: this.selectedTitle,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      acceptTerms: this.termsConds
+
+  submitFormValues(formInfo: any): void {
+    // Mark fields as "touched" upon submit
+    (<any>Object).values(formInfo.form.controls).forEach((control: { markAsTouched: () => void; }) => {
+      control.markAsTouched();
     })
+
+    // Do not submit if email is falsey.
+    if(formInfo.value.email) {
+      console.log({
+        title: formInfo.value.selectedTitle,
+        firstName: formInfo.value.firstName,
+        lastName: formInfo.value.lastName,
+        acceptTerms: formInfo.value.termsConds
+      })
+    }
   }
 }
