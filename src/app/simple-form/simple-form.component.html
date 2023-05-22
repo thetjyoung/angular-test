@@ -2,31 +2,41 @@
 <form #formControl="ngForm" (ngSubmit)="submitFormValues(formControl)">
   <div class="inner-wrapper">
     <div class="line">
-      <label for="title">Title</label>
-      <select id="title" #titles name="selectedTitle" [(ngModel)]="selectedTitle" (change)="onSelected(titles.selectedOptions[0].text)">
-        <option value="">-- Select an option --</option>
-        <option *ngFor="let title of filteredTitles" [selected]="title.isDefault === true" [ngValue]="title.name">{{title.name}}</option>
-      </select>
+      <div class="input-label">
+        <label for="title">Title</label>
+        <select id="title" #titles name="selectedTitle" [(ngModel)]="selectedTitle" (change)="onSelected(titles.selectedOptions[0].text)">
+          <option value="">-- Select an option --</option>
+          <option *ngFor="let title of filteredTitles" [selected]="title.isDefault === true" [ngValue]="title.name">{{title.name}}</option>
+        </select>
+      </div>
     </div>
     <div class="line">
-      <label for="firstName">First Name</label>
-      <input id="firstName" type="text" placeholder="First name" [(ngModel)]="firstName" name="firstName" />
+      <div class="input-label">
+        <label for="firstName">First Name</label>
+        <input id="firstName" type="text" placeholder="First name" [(ngModel)]="firstName" name="firstName" />
+      </div>
     </div>
     <div class="line" [class.error]="lastNameControl.invalid && lastNameControl.touched">
-      <label for="lastName">Last Name</label>
-      <input id="lastName" type="text" placeholder="Last name" [(ngModel)]="lastName" name="lastName" #lastNameControl="ngModel" required />
+      <div class="input-label">
+        <label for="lastName">Last Name<sup class="required">*</sup></label>
+        <input id="lastName" type="text" placeholder="Last name" [(ngModel)]="lastName" name="lastName" #lastNameControl="ngModel" required />
+      </div>
       <span *ngIf="lastNameControl.invalid && lastNameControl.touched" >*Last name is required</span>
     </div>
     <div class="line" [class.error]="emailControl.invalid && emailControl.touched || emailControl.errors?.['pattern']">
-        <label for="email">Email</label>
+      <div class="input-label">
+        <label for="email">Email<sup class="required">*</sup></label>
         <input id="email" type="email" placeholder="Email" [(ngModel)]="email" name="email" 
           #emailControl="ngModel" email required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.com)+$"  />
-        <span *ngIf="emailControl.invalid && emailControl.touched">*Email is required<br></span>
-        <span *ngIf="emailControl.errors?.['pattern']">*Email is invalid</span>
+      </div>
+      <span *ngIf="emailControl.invalid && emailControl.touched">*Email is required<br></span>
+      <span *ngIf="emailControl.errors?.['pattern']">*Email is invalid</span>
     </div>
     <div>
-      <input id="termsConds" type="checkbox" [(ngModel)]="termsConds" name="termsConds" #checkboxControl="ngModel" required />
-      <label for="termsConds">I accept the terms & conditions</label>
+      <label for="termsConds" class="termsCondsContainer">
+        <input id="termsConds" type="checkbox" [(ngModel)]="termsConds" name="termsConds" #checkboxControl="ngModel" required />
+        <span class="checkmark"></span>
+        I accept the terms & conditions<sup class="required">*</sup></label>
     </div>
     <div>
       <input type="submit" name="submit" id="submit" [disabled]="checkboxControl.invalid || emailControl.errors?.['pattern']" />

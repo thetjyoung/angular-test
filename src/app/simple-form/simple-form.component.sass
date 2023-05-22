@@ -1,18 +1,43 @@
+h1, form
+    font-family: Calibri, 'Trebuchet MS', sans-serif
+
+h1
+    text-align: center
+
 form 
     .inner-wrapper
-        max-width: 500px
+        background-color: #f7f7f7
+        max-width: 600px
+        padding: 50px 15px
+        margin: 0 auto
+        font-weight: bold
+
+        @media (min-width: 768px)
+            padding: 50px 50px
 
         .line
             margin-bottom: 10px
+            display: flex
+            flex-direction: column
+            width: 100%
+
+            .input-label
+                display: flex
+                width: 100%
+
+                label
+                    min-width: 100px
+                    display: flex
+                    align-items: center
+
+                select,
+                input
+                    width: inherit
+                    box-sizing: border-box
+                    height: 40px
                 
-            label
-                width: 25%
-                display: inline-block
-            
-            select,
-            input
-                width: 75%
-                box-sizing: border-box
+                input
+                    padding: 5px
 
             &.error
                 input 
@@ -22,8 +47,89 @@ form
                     color: red
                     font-size: 12px
                     position: relative
-                    left: 25%
+                    left: 100px
+                    padding-top: 5px
+                    width: fit-content
         
         div:last-of-type
             display: flex
             justify-content: flex-end
+
+            #submit 
+                margin-top: 40px
+                height: 40px
+                min-width: 100px
+                background: #000
+                color: #fff
+                cursor: pointer
+                border-style: none
+                font-weight: bold
+
+                &:hover
+                    background: darkcyan
+                    border-color: darkcyan
+
+                &:disabled,
+                &[disabled]
+                    background: #4b4b4b
+                    border-color: #000
+                    cursor: default
+                    
+        label
+            .required
+                color: red
+                padding-left: 3px
+                font-size: 100%
+                vertical-align: top
+        
+        .termsCondsContainer
+            margin-top: 30px
+            display: block
+            position: relative
+            padding-left: 35px
+            margin-bottom: 12px
+            cursor: pointer
+            font-size: 17px
+            -webkit-user-select: none
+            -moz-user-select: none
+            -ms-user-select: none
+            user-select: none
+
+            &:hover input ~ .checkmark
+                background-color: #ccc
+                
+
+            input
+                position: absolute
+                opacity: 0
+                cursor: pointer
+                height: 0
+                width: 0
+
+                &:checked ~ .checkmark
+                      background-color: darkcyan
+
+                      &::after
+                        display: block
+        
+        .checkmark
+            position: absolute
+            top: 0
+            left: 0
+            height: 20px
+            width: 20px
+            background-color: #ddd
+
+            &::after
+                content: ""
+                position: absolute
+                display: none
+                left: 6px
+                top: 2px
+                width: 5px
+                height: 10px
+                border: solid white
+                border-width: 0 3px 3px 0
+                -webkit-transform: rotate(45deg)
+                -ms-transform: rotate(45deg)
+                transform: rotate(45deg)
