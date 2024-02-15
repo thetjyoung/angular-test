@@ -1,0 +1,49 @@
+
+// Basic styles for the form
+
+@mixin red-border
+    border: 1px solid red
+
+.body
+    max-width: 400px
+    margin: 0 auto
+    padding: 20px
+.errorMessage
+    color: #FF0000
+
+
+
+label
+    display: block
+    margin-bottom: 5px
+
+input[type="text"],
+input[type="email"],
+
+select
+    width: 100%
+    padding: 10px
+    margin-bottom: 10px
+    //border: 1px solid #ced4da
+    border-radius: 5px
+
+input[type="checkbox"]
+    margin-right: 5px
+
+button
+    padding: 10px 20px
+    background-color: #007bff
+    color: #fff
+    border: none
+    border-radius: 5px
+    float: right
+
+button:hover
+    background-color: #0056b3
+    float-right: 5px
+
+// Adding some spacing between elements
+div + div 
+    margin-top: 15px
+.errorBorder
+    @include red-border
