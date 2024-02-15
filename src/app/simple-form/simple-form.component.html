@@ -1,32 +1,68 @@
-<h1>Simple Angular Test</h1>
-<form>
-  <div>
+<div class="body">
+  <h1>Simple Angular Test</h1>
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
     <div>
-      <label>Title</label>
-      <select>
-        <option value="">-- Select an option --</option>
-        <!--TODO: add titles to dropdown-->
-      </select>
-    </div>
-    <div>
-      <label>First Name</label>
-      <input type="text" placeholder="First name" />
-    </div>
-    <div>
-      <label>Last Name</label>
-      <input type="text" placeholder="Last name" />
-    </div>
-    <div>
+      <div>
+        <label>Title</label>
+        <select formControlName="title">
+          <option value="" disabled>-- Select an option --</option>
+          <option *ngFor="let title of finalTitles" [value]="title.title">
+            {{ title.title }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label>First Name</label>
+        <input
+          [ngClass]="{ errorBorder: showError('firstName') }"
+          formControlName="firstName"
+          type="text"
+          placeholder="First name"
+        />
+        <div class="errorMessage" *ngIf="showError('firstName')">
+          *First Name is required
+        </div>
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input
+          [ngClass]="{ errorBorder: showError('lastName') }"
+          formControlName="lastName"
+          type="text"
+          placeholder="Last name"
+        />
+        <div class="errorMessage" *ngIf="showError('lastName')">
+          *Last Name is required
+        </div>
+      </div>
+      <div>
         <label>Email</label>
-        <input type="email" placeholder="Email" />
+        <input
+          [ngClass]="{ errorBorder: showError('email') }"
+          formControlName="email"
+          type="email"
+          placeholder="Email"
+        />
+        <div class="errorMessage" *ngIf="showError('email')">
+          *Email Name is required
+        </div>
+        <div class="errorMessage" *ngIf="inValidEmail">
+          *Invalid Email
+        </div>
+      </div>
+      <span></span>
+      <div>
+        <input formControlName="acceptTerms" type="checkbox" />
+        <label>I accept the terms & conditions</label>
+      </div>
+      <div>
+        <button
+          type="submit"
+          [disabled]="!customerForm.get('acceptTerms')!.value"
+        >
+          Submit
+        </button>
+      </div>
     </div>
-    <span></span>
-    <div>
-      <input type="checkbox" />
-      <label>I accept the terms & conditions</label>
-    </div>
-    <div>
-      <button>Submit</button>
-    </div>
-  </div>
-</form>
+  </form>
+</div>
